@@ -16,35 +16,65 @@
     const root = document.querySelector("#root");
 
     function App() {
-      const [minutes, setMinutes] = React.useState();
+      const [amount, setAmount] = React.useState();
+      const [flipped, setFlipped]=React.useState(false);//유지스테이에 인자는 디폴트값!
+      
       const onChange = (event) => {
         console.log(event.target.value);
         // 인풋 변화할 곳에 state함수를 넣어줌
         //어떤 값이냐! 아까는 내가 인자로 받은 값이였는데,
         // 이번에는 이번 벨류의 값을 바로 꽂아 주었음 그래서 리랜덩링 시킨것
-        setMinutes(event.target.value);
+        setAmount(event.target.value);
       };
-      // const onClick= ()=>{
-      //     // setCount(counter+1);
-      //     setCount((current)=>currnet+1);
-      //     //이 뜻이 어떤 함수를 리턴해도! 지금 내가 가지고 있는 함수부터 리턴함 나의 인자로부터 시작하니까?
-      // };
+      const reset=()=>{setAmount(0)}
+      // const onFlip=()=>{setFlipped(!flipped);}
+       const onFlip=()=>{
+        //토글이 되었을때는 언제나 0부터 시작해야 하니까 위에 만들어놓은 리셋 함수를 이용한다!
+        reset();
+        setFlipped((current)=> !current);
+      //!! 어떻게 해준거냐면 나는 토클처럼 사용하고 싶은거니까 위의 값을 !을 써서 클릭하면 값이 체인지 되는것 처럼 해준것
+      //그런데 이렇게 직접 값을 조작하면 뭔가 꼬일 수 있나봐 그래서 함수의 값으로 !(부정명제)해줌 
+    }
+      
+      
+      //2개의 state을 만들어줌 그걸 이용
       return (
         <div>
           <h1>컨버터</h1>
           <label for="minute">분</label>
           <input
-            value={minutes}
+            value={flipped? amount *60: amount }
+            //와일문에도 그냥 while(true) 라고 적을 때 있잖아 그거이것 같아
+            //지금 가져오는 값이 true와 펄스만 가지고 비교하지 않고 조건만 넣은 상태 인듯! 
+            //true? 분에*60곱해죠/ 아니면 거짓이라면 그냥 분만 보여주고
             id="minute"
             placehoder="분"
             type="number"
             onChange={onChange}
+            disabled={flipped===true}
+            //disabled={flipped} 의 경우 항상 트루부터 시작하니까 위에 함수의 아규먼트가 !false임
+            //이렇게 가능함
           />
           <br />
-          <h3> 분:{minutes} </h3>
+          <h3> 분:{amount} </h3>
           <label for="hours">hours</label>
-          <input id="hours" placehoder="시간" type="number" />
+          <input 
+            //value={Math.round(minutes/60)}//반올림　 변경되었을 때는 사용하지 않게 조건문으로 변경
+            value={flipped? amount: Math.round(amount/60)}
+            //벨류의 값이 able=flipped이라면 /60을 나누어라 
+
+            id="hours" 
+            placehoder="시간" 
+            type="number" 
+            onChange={onChange}
+            disabled={flipped===false}
+            //disabled={!flipped} 여기서 바로 !을 써준 상태!
+            
+            />
+            
           <br />
+          <button onClick={reset}>Reset</button> 
+          <button onClick={onFlip}>변경</button>
         </div>
       );
     }
