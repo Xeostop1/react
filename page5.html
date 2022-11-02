@@ -15,7 +15,30 @@
   <script type="text/babel">
     const root = document.querySelector("#root");
     function KmTomiles(){
-      return <h3>KM 2M</h3>;
+      const [km, setKm]=React.useState();
+      const [checked, setCheck]=React.useState(false);
+      const onChange=(event)=>{
+        setKm(event.target.value);
+      };
+      const reset=()=>{
+        setKm(0);
+      };
+      const onCheck=()=>{
+        reset();
+        setCheck((inner)=>!inner);
+      }
+      return(
+        <div>
+          <h3>KM 2M</h3>
+          <input 
+            type="number"
+            placehoder="km을 적어주세요"
+          
+          />
+        </div>
+        
+      );
+      
 
     }
     function MinutesToHours() {
@@ -82,11 +105,13 @@
     }
     function App() {
       //배열에 넣어야 세팅을 할 수 있네 인수랑 함수쓰는
-    const [index, setIndex]=React.useState("0");
+    const [index, setIndex]=React.useState("defalut");
     //세팅할곳에 useState 써야하나봐
     const onSelect=(event)=>{
       console.log(event.target.value);
       // 셀렉트의 어떤 이벤트가 선택되었는지 벨류값으로 체크
+      setIndex(event.target.value); 
+      //타켓을 꼭 함수에 넣어주자 그래야 변화하는 아규먼트를 모두 세팅할 수있음
     }
     //셀렉트 태그에 온체인지를 걸어서(리스너를 걸어준 상태)
     //진짜 다이나믹웹이랑 똑같네 {}열어주고 하는거!
@@ -94,10 +119,15 @@
         <div>
           <h1>Super Converter</h1>
           <select value={index} onChange={onSelect}>
+            <option value="defalut">필요한 모드를 골라주세요</option>
             <option value="0">분 변환기</option>
             <option value="1">Km 2 miles</option>
           </select>
           <hr/>
+          {index==="defalut"? "1. 시간, 분변환기 2. 거리변환기": null
+          //이게 왜 되냐면! 여기는 html공간이고 {열어준 상태라서 바로 노드 꽂아버린것! write 안해도}
+          }
+
           {index==="0"? <MinutesToHours/>:null 
             //3항연산자로 함수를 불러냄 {}항목에는 js 사용함
           }
