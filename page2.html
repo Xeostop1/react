@@ -14,16 +14,18 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <script type="text/babel">
     const root=document.querySelector("#root");
-    const title=<h3 id="title" onMouseEnte={
+    const Title=()=>(
+    <h3 id="title" onMouseEnter={
         ()=> console.log("mouse enter")
     }>
-    hello jsx I'm h3 </h3>
+    hello jsx hello I'm h3 </h3>);
+    
     // const span=React.createElement("h3",{
     //     id: "h3-title",
     //     onMouseEnter:()=>console.log("mouse enter"),
     // }, "hello i am span");
     
-    const btn=
+    const Btn= ()=>(
         <button 
             style={{
                 backgroundColor:"gray",
@@ -32,7 +34,7 @@
         >  
         click me 
         </button>
-
+        );
 
     // const btn=React.createElement("button", 
     //     {
@@ -42,7 +44,13 @@
     //      }
     //     }, 
     //     "click me" );
-    const container=React.createElement("div", null, [title, btn]);  //배열로 넣어줬네
+    //const container=React.createElement("div", null, [title, btn]);  //배열로 넣어줬네
+    const container=<div>
+        <Title/>
+        <Btn/>  
+        // 소문자라면 태그라고 생각할수 있음!! 앞에 대문자를 적어주자
+        </div>
+
     ReactDOM.render(container, root);   //사용자에게 보여준다
 </script>
 </html>
