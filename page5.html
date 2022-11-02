@@ -14,8 +14,11 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const root = document.querySelector("#root");
+    function KmTomiles(){
+      return <h3>KM 2M</h3>;
 
-    function App() {
+    }
+    function MinutesToHours() {
       const [amount, setAmount] = React.useState();
       const [flipped, setFlipped]=React.useState(false);//유지스테이에 인자는 디폴트값!
       
@@ -40,7 +43,6 @@
       //2개의 state을 만들어줌 그걸 이용
       return (
         <div>
-          <h1>컨버터</h1>
           <label for="minute">분</label>
           <input
             value={flipped? amount *60: amount }
@@ -56,7 +58,6 @@
             //이렇게 가능함
           />
           <br />
-          <h3> 분:{amount} </h3>
           <label for="hours">hours</label>
           <input 
             //value={Math.round(minutes/60)}//반올림　 변경되었을 때는 사용하지 않게 조건문으로 변경
@@ -74,9 +75,38 @@
             
           <br />
           <button onClick={reset}>Reset</button> 
-          <button onClick={onFlip}>변경</button>
+          <button onClick={onFlip}>{flipped? "분으로 알아보기 ":"시간으로 알아보기"}</button>
+          
         </div>
       );
+    }
+    function App() {
+      //배열에 넣어야 세팅을 할 수 있네 인수랑 함수쓰는
+    const [index, setIndex]=React.useState("0");
+    //세팅할곳에 useState 써야하나봐
+    const onSelect=(event)=>{
+      console.log(event.target.value);
+      // 셀렉트의 어떤 이벤트가 선택되었는지 벨류값으로 체크
+    }
+    //셀렉트 태그에 온체인지를 걸어서(리스너를 걸어준 상태)
+    //진짜 다이나믹웹이랑 똑같네 {}열어주고 하는거!
+      return(
+        <div>
+          <h1>Super Converter</h1>
+          <select value={index} onChange={onSelect}>
+            <option value="0">분 변환기</option>
+            <option value="1">Km 2 miles</option>
+          </select>
+          <hr/>
+          {index==="0"? <MinutesToHours/>:null 
+            //3항연산자로 함수를 불러냄 {}항목에는 js 사용함
+          }
+          {index==="1"? <KmTomiles/>:null}
+
+
+             
+        </div>
+      )
     }
     ReactDOM.render(<App />, root); //사용자에게 보여준다
   </script>
