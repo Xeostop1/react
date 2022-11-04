@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>리액트</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    const root = document.querySelector("#root");
+    function App() {
+      let [counter, setCount] = React.useState(0); //1매개변수로 초기값을 세팅할 수 있음    2. 매개변수는 함수
+
+      const onClick = () => {
+        // setCount(counter+1);
+        setCount((current) => currnet + 1);
+        //이 뜻이 어떤 함수를 리턴해도! 지금 내가 가지고 있는 함수부터 리턴함 나의 인자로부터 시작하니까?
+      };
+      console.log("렌더링 횟수");
+      console.log(counter);
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button onClick={onClick}> click me </button>
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root); //사용자에게 보여준다
+  </script>
+</html>
