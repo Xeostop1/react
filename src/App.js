@@ -32,6 +32,8 @@ console.log(toDos);
             Add Todo
           </button>
       </form>
+      <hr/>
+      {toDos.map()}
     </div>
   );
 }
