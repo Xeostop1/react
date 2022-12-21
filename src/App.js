@@ -29,9 +29,11 @@ console.log(toDos);
             onChange={onChane}
           />
           <button>
-            Add Todo
+            Add Todo 5:43까지 진행
           </button>
       </form>
+      <hr/>
+      {toDos.map()}
     </div>
   );
 }
